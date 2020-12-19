@@ -1,0 +1,39 @@
+.note {
+  background-color: coral;
+  color: black;
+  margin-bottom: 8px;
+  max-width: 380px;
+  padding: 8px 0 8px 8px;
+}
+
+.deleteBtn {
+  height: 32px;
+  background-color: black;
+  border: 0;
+  color: white;
+  font-size: 1rem;
+}
+
+.deleteBtn:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.note-title {
+  font-size: 1.25rem;
+  margin: 0;
+  max-width: 80%;
+  min-height: 24px;
+}
+
+.note-title a {
+  color: black;
+  display: block;
+  text-decoration: none;
+}
+
+.note-title a:hover {
+  color: white;
+}

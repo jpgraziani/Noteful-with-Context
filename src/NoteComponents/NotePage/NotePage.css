@@ -1,0 +1,9 @@
+.notePage {
+  height: 100%;
+  padding: 1rem;
+}
+
+.notePage-content {
+  margin-top: 1em;
+  max-width: 24em;
+}

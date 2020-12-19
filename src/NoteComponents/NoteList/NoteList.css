@@ -1,0 +1,17 @@
+.noteList ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 1em;
+}
+
+.addNoteBtn {
+  background-color: coral;
+  border: none;
+  color: black;
+  font-size: 1rem;
+} 
+
+.addNoteBtn:hover {
+  background-color: black;
+  color: white;
+}

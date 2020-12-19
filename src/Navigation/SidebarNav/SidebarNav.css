@@ -1,0 +1,36 @@
+.sidebarNav-ul {
+  list-style-type: none;
+  margin: 130px 0 0;
+  padding: 0;
+}
+
+.sb-navLink, .addBtn {
+  background-color: black;
+  color: white;
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: .5em;
+  max-width: 150px;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.addBtn {
+  background-color: coral;
+  border: none;
+  color: black;
+  font-size: 1rem;
+} 
+
+.addBtn:hover {
+  background-color: black;
+  color: white;
+}
+
+.sb-navLink:hover {
+  color: coral;
+  cursor: pointer;
+}
+.sb-navLink.active {
+  color: coral;
+}

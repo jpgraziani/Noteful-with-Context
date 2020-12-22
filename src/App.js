@@ -7,7 +7,7 @@ import NoteList from './NoteComponents/NoteList/NoteList';
 import NotePage from './NoteComponents/NotePage/NotePage';
 
 import dummyStore from './dummyStore';
-import { getNotesForFolder, findNote, findFolder } from './functionHelpers';
+
 
 import './App.css';
 
@@ -23,9 +23,10 @@ class App extends React.Component {
 
   renderNavRoutes() {
     const { notes, folders } = this.state;
+    const pathRoute = ['/', '/folder/:folderId'];
     return (
       <Fragment>
-        {['/', '/folder/:folderId'].map(path => (
+        {pathRoute.map(path => (
           <Route 
             exact
             key= {path}
@@ -42,10 +43,11 @@ class App extends React.Component {
         <Route 
           path='/note/:noteId'
           render={routeProps => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId) || {};
-            const folder = findFolder(folders, note.folderId);
-            return <ActiveNoteNav {...routeProps} folder={folder} />;
+            return (
+              <ActiveNoteNav 
+                {...routeProps} 
+                notes={notes}
+                folders={folders} />);
           }}
         />
       </Fragment>
@@ -54,32 +56,30 @@ class App extends React.Component {
 
   renderMainRoutes() {
     const { notes } = this.state;
+    const pathRoute = ['/', '/folder/:folderId'];
     return (
       <Fragment>
-        {['/', '/folder/:folderId'].map(path => (
+        {pathRoute.map(path => (
           <Route 
             exact
             key={path}
             path={path}
             render={routeProps => {
-              const { folderId } = routeProps.match.params;
-              const notesForFolder = getNotesForFolder(notes, folderId);
               return (
                 <NoteList 
                  {...routeProps}
-                 notes={notesForFolder}
-                 folder={folderId} 
-                />
-              );
+                 notes={notes}
+                />);
             }}
           />
         ))}
         <Route 
           path='/note/:noteId'
           render={routeProps => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId);
-            return <NotePage {...routeProps} note={note} />
+            return (
+              <NotePage 
+              {...routeProps} 
+              notes={notes} />);
           }}
         />
       </Fragment>

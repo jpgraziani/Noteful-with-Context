@@ -1,17 +1,21 @@
 import React from 'react';
 import Note from '../Note/Note';
+import { findNote } from '../../functionHelpers.js';
 import './NotePage.css';
 
 function NotePage(props) {
+  const { noteId } = props.match.params;
+  const notes = props.notes
+  const note = findNote(notes, noteId);
   return (
     <section className='notePage'>
       <Note 
-        id={props.note.id}
-        name={props.note.name}
-        modified={props.note.modified}
+        id={note.id}
+        name={note.name}
+        modified={note.modified}
       />
     <div className='notePage-content'>
-      <p>{props.note.content}</p>
+      <p>{note.content}</p>
     </div>
     </section>
   );

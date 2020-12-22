@@ -1,12 +1,16 @@
 import React from 'react';
 import Note from '../Note/Note';
+import { getNotesForFolder } from '../../functionHelpers';
 import './NoteList.css';
 
 function NoteList(props) {
+  const { folderId } = props.match.params;
+  const notes = props.notes
+  const notesForFolder = getNotesForFolder(notes, folderId);
   return (
     <section className='noteList'>
       <ul>
-        {props.notes.map(note =>
+        {notesForFolder.map(note =>
           <li key={note.id}>
             <Note 
               id={note.id}

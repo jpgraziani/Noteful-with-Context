@@ -9,11 +9,23 @@ class Note extends React.Component {
   handleClickDelete = (event) => {
     event.preventDefault();
     const noteId = this.props.id
+
+    fetch(`http://localhost:9090/notes/${noteId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+    .then(() => {
+      this.context.deleteNote(noteId)
+      this.props.onDeleteNote(noteId)
+    })
+    .catch(error => {
+      console.error({error})
+    })
   }
-
-  fetch()
-
-
 
   render() {
     const { name, id, modified } = this.props;
@@ -27,7 +39,11 @@ class Note extends React.Component {
         <div>
           <p>Modified on {modified}</p>
         </div>
-        <button className='deleteBtn' type='button'>
+        <button 
+          className='deleteBtn' 
+          type='button'
+          onClick={this.handleClickDelete}
+          >
           remove
         </button>
       </div>

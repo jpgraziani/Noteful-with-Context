@@ -48,7 +48,7 @@ class App extends React.Component {
   }
  
   renderNavRoutes() {
-    const pathRoute = ['/folder/:folderId'];
+    const pathRoute = ['/', '/folder/:folderId'];
     return (
       <Fragment>
         {pathRoute.map(path => (
@@ -76,7 +76,7 @@ class App extends React.Component {
   }
 
   renderMainRoutes() {
-    const pathRoute = ['/folder/:folderId'];
+    const pathRoute = ['/', '/folder/:folderId'];
     return (
       <Fragment>
         {pathRoute.map(path => (

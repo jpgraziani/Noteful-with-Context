@@ -4,6 +4,17 @@ import './Note.css';
 import NotefulContext from '../../NotefulContext';
 
 class Note extends React.Component {
+  static contextType = NotefulContext;
+
+  handleClickDelete = (event) => {
+    event.preventDefault();
+    const noteId = this.props.id
+  }
+
+  fetch()
+
+
+
   render() {
     const { name, id, modified } = this.props;
     return(

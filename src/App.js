@@ -6,8 +6,9 @@ import ActiveNoteNav from './Navigation/ActiveNoteNav/ActiveNoteNav';
 import NoteList from './NoteComponents/NoteList/NoteList';
 import NotePage from './NoteComponents/NotePage/NotePage';
 
-import dummyStore from './dummyStore';
-
+// import dummyStore from './dummyStore';
+import NotefulContext from './NotefulContext';
+// import config from './config';
 
 import './App.css';
 
@@ -18,11 +19,30 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState(dummyStore)
+    Promise.all([
+      fetch(`http://localhost:9090/notes`),
+      fetch(`http://localhost:9090/folders`)
+    ])
+    .then(([notesRes, foldersRes]) => {
+      if (!notesRes.ok)
+        return notesRes.json().then(err => Promise.reject(err));
+      if (!foldersRes.ok)
+        return foldersRes.json().then(err => Promise.reject(err));
+
+      return Promise.all([notesRes.json(), foldersRes.json()]);
+    })
+    .then(([notes, folders]) => {
+      this.setState({
+        notes, 
+        folders
+      });
+    })
+    .catch(error => {
+      console.error({error})
+    })
   }
 
   renderNavRoutes() {
-    const { notes, folders } = this.state;
     const pathRoute = ['/', '/folder/:folderId'];
     return (
       <Fragment>
@@ -31,24 +51,20 @@ class App extends React.Component {
             exact
             key= {path}
             path={path}
-            render={routeProps => (
-              <SidebarNav
-                notes={notes}
-                folders={folders} 
-                {...routeProps}
-              />
-            )}
+            component={SidebarNav}
           />
         ))}
         <Route 
           path='/note/:noteId'
-          render={routeProps => {
-            return (
-              <ActiveNoteNav 
-                {...routeProps} 
-                notes={notes}
-                folders={folders} />);
-          }}
+          component={ActiveNoteNav}
+        />
+        <Route 
+          path='/add-folder'
+          component={ActiveNoteNav}
+        />
+        <Route 
+          path='/add-note'
+          component={ActiveNoteNav}
         />
       </Fragment>
     );

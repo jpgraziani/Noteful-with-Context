@@ -1,0 +1,14 @@
+#addFolder-section {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+#addfolder-form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 4rem;
+}
+
+#nameRequirement {
+  margin-bottom: 1rem;
+}

@@ -5,6 +5,9 @@ import SidebarNav from './Navigation/SidebarNav/SidebarNav';
 import ActiveNoteNav from './Navigation/ActiveNoteNav/ActiveNoteNav';
 import NoteList from './NoteComponents/NoteList/NoteList';
 import NotePage from './NoteComponents/NotePage/NotePage';
+import AddNote from './AddNotePage/AddNote';
+import AddFolder from './AddFolder/AddFolder';
+import ErrorBoundary from './ErrorBoundary';
 
 import NotefulContext from './NotefulContext';
 
@@ -34,7 +37,6 @@ class App extends React.Component {
         notes, 
         folders
       });
-      console.log(this.state)
     })
     .catch(error => {
       console.error({error})
@@ -46,31 +48,45 @@ class App extends React.Component {
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
   }
+
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [
+        ...this.state.folders,
+        folder
+      ]
+    })
+  }
+
+  handleAddNote = note => {
+    this.setState({
+      notes: [
+        ...this.state.notes,
+        note
+      ]
+    })
+  }
  
   renderNavRoutes() {
     const pathRoute = ['/', '/folder/:folderId'];
     return (
       <Fragment>
         {pathRoute.map(path => (
-          <Route 
-            exact
-            key= {path}
-            path={path}
-            component={SidebarNav}
-          />
+          <ErrorBoundary key={path}>
+            <Route 
+              exact
+              key= {path}
+              path={path}
+              component={SidebarNav}
+            />
+          </ErrorBoundary>
         ))}
-        <Route 
-          path='/note/:noteId'
-          component={ActiveNoteNav}
-        />
-        <Route 
-          path='/add-folder'
-          component={ActiveNoteNav}
-        />
-        <Route 
-          path='/add-note'
-          component={ActiveNoteNav}
-        />
+        <ErrorBoundary>
+          <Route 
+            path='/note/:noteId'
+            component={ActiveNoteNav}
+          />
+        </ErrorBoundary>
       </Fragment>
     );
   }
@@ -80,17 +96,29 @@ class App extends React.Component {
     return (
       <Fragment>
         {pathRoute.map(path => (
-          <Route 
-            exact
-            key={path}
-            path={path}
-            component={NoteList}
-          />
+          <ErrorBoundary key={path}>
+            <Route 
+              exact
+              key={path}
+              path={path}
+              component={NoteList}
+            />
+          </ErrorBoundary>
         ))}
-        <Route 
-          path='/note/:noteId'
-          component={NotePage}
-        />
+        <ErrorBoundary>
+          <Route 
+            path='/note/:noteId'
+            component={NotePage}
+          />
+          <Route 
+            path='/add-folder'
+            component={AddFolder}
+          />
+          <Route 
+            path='/add-note'
+            component={AddNote}
+          />
+        </ErrorBoundary>
       </Fragment>
     );
   }
@@ -99,6 +127,8 @@ class App extends React.Component {
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
       deleteNote: this.handleDeleteNote
     }
     return (

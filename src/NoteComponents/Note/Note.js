@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './Note.css';
 import NotefulContext from '../../NotefulContext';
 
 class Note extends React.Component {
+  static defaultProps = {
+    onDeleteNote: () => {},
+  }
+
   static contextType = NotefulContext;
 
   handleClickDelete = (event) => {
@@ -49,6 +54,12 @@ class Note extends React.Component {
       </div>
     );
   }
+  }
+
+  Note.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    modified: PropTypes.string.isRequired
   }
 
 export default Note;

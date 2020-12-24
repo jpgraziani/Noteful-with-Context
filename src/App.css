@@ -10,7 +10,6 @@
   color: #fff;
   grid-area: sidebar;
   height: 100vh;
-  overflow: auto;
 }
 
 .app-header, a {

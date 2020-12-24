@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { findFolder, findNote } from '../../functionHelpers';
 import NotefulContext from '../../NotefulContext';
 import './ActiveNoteNav.css';
@@ -25,7 +26,13 @@ class ActiveNoteNav extends React.Component {
       </section>
     );
   }
-  
+}
+
+ActiveNoteNav.propTypes = {
+  folders: PropTypes.arrayOf(PropTypes.shape({
+    'id': PropTypes.string.isRequired,
+    'name': PropTypes.string.isRequired,
+  })),
 }
 
 export default ActiveNoteNav;

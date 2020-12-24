@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Note from '../Note/Note';
 import { getNotesForFolder } from '../../functionHelpers';
 import './NoteList.css';
@@ -24,9 +25,11 @@ class NoteList extends React.Component {
             </li>
             )}
         </ul>
-        <button className='addNoteBtn'>
+        <Link 
+          to='/add-note'  
+          className='addNoteBtn'>
           Add Note
-        </button>
+        </Link>
       </section>
     );
   }
